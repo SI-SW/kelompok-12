@@ -1,27 +1,26 @@
 import { defineStore } from "pinia";
 import { certCookies, setCookies, delCookies } from "../plugins/cookies";
-<<<<<<< HEAD
-import * as s$auth from '../services/auth'
-=======
-import * as a$auth from '@/service/auth';
-
->>>>>>> 6d20ad81427c1376fe74c60596cbedfe068d1a2f
+import * as s$auth from '@/services/auth'
 const d$auth = defineStore({
     id: 'auth',
     state: () => ({
-        name: undefined,
         id: undefined,
+        name: undefined,
         role: undefined,
+
     }),
     actions: {
         async a$setUser() {
+            console.log(certCookies())
             try {
                 const { id, name, role } = certCookies();
                 this.id = id;
                 this.name = name;
                 this.role = role;
-                return 'User Authenticated!';
-            } catch ({message}) {
+                return 'user authenticated!';
+
+            }
+            catch ({ message }) {
                 this.id = undefined;
                 this.name = undefined;
                 this.role = undefined;
@@ -30,28 +29,23 @@ const d$auth = defineStore({
         },
         async a$login(body) {
             try {
-                const { data } = await a$auth.login(body)
-                setCookies('CERT', data.token, {datetime: data.expiresAt})
+                const { data } = await s$auth.login(body);
+                setCookies('CERT', data.token, { datetime: data.expiresAt });
                 this.a$setUser();
                 return true;
-            } catch (e) {
-                console.log(e);
-                throw e;
-            }
-        },
-        async a$logout() {
-            try {
-              delCookies('CERT');
-            } catch ({ error, message }) {
-              throw message ?? error;
+            } catch (error) {
+                console.log(error)
+                throw error;
             }
         },
         async a$register(body) {
             try {
-                await a$auth.register(body)
-            } catch (e) {
-                console.log(e);
-                throw e;
+                const { data } = await s$auth.register(body);
+                setCookies('CERT', data.token, { datetime: parseISO(data.expiresAt) });
+                this.a$setUser();
+                return true;
+            } catch ({ error, message }) {
+                throw message ?? error;
             }
         },
         async a$logout() {
@@ -63,8 +57,9 @@ const d$auth = defineStore({
         },
     },
     getters: {
-        g$user: ({ id, name, role }) => ({ id, name, role })
-    }
-})
+        g$user: ({ id, name, role }) => ({ id, name, role }),
+    },
 
-export default d$auth
+});
+
+export default d$auth;
