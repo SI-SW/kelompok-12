@@ -8,7 +8,7 @@
       <router-link
         class="navbar-brand font-weight-bolder ms-lg-0 ms-3"
         :class="darkMode ? 'text-black' : 'text-white'"
-        to="/"
+        :to="{ name: 'Default' }"
         >Argon Dashboard 2</router-link
       >
       <button
@@ -43,7 +43,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link me-2" to="/profile">
+            <router-link class="nav-link me-2" to="profil">
               <i
                 class="fa fa-user opacity-6 me-1"
                 aria-hidden="true"
@@ -53,7 +53,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link me-2" to="/signup">
+            <router-link class="nav-link me-2" :to="{ name: 'Signin' }">
               <i
                 class="fas fa-user-circle opacity-6 me-1"
                 aria-hidden="true"
@@ -63,7 +63,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link me-2" to="/signin">
+            <router-link class="nav-link me-2" :to="{ name: 'Signup' }">
               <i
                 class="fas fa-key opacity-6 me-1"
                 aria-hidden="true"
