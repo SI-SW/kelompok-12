@@ -10,7 +10,7 @@
         :class="getClasses(size, valid)"
         :name="name"
         :id="id"
-        :value="modeValue"
+        :value="modelValue"
         :placeholder="placeholder"
         :isRequired="isRequired"
         @change="$emit('update:modelValue',$event.target.value)"

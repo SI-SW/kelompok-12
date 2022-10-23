@@ -29,6 +29,16 @@ const d$auth = defineStore({
         async a$login(body) {
             try {
                 const { data } = await s$auth.login(body);
+                setCookies('CERT', data.token, { datetime: data.expiresAt });
+                this.a$setUser();
+                return true;
+            } catch ({ error, message }) {
+                throw message ?? error;
+            }
+        },
+        async a$register(body) {
+            try {
+                const { data } = await s$auth.register(body);
                 setCookies('CERT', data.token, { datetime: parseISO(data.expiresAt) });
                 this.a$setUser();
                 return true;

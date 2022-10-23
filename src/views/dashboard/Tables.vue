@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import AuthorsTable from "./components/AuthorsTable.vue";
-import ProjectsTable from "./components/ProjectsTable.vue";
+import AuthorsTable from "@/components/examples/AuthorsTable.vue";
+import ProjectsTable from "@/components/examples/ProjectsTable.vue";
 
 export default {
   name: "tables",

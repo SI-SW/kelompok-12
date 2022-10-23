@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="url" class="nav-link" v-bind="$attrs">
+  <router-link :to="url" class="nav-link" v-bind="$attrs" exact>
     <div
       class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center"
     >

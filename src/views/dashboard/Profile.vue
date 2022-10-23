@@ -295,7 +295,7 @@
 <script>
 import setNavPills from "@/assets/js/nav-pills.js";
 import setTooltip from "@/assets/js/tooltip.js";
-import ProfileCard from "./components/ProfileCard.vue";
+import ProfileCard from "@/components/examples/ProfileCard.vue";
 import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 

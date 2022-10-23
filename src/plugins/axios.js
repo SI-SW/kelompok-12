@@ -6,7 +6,7 @@ const hostname = import.meta.env.VITE_BASE_API_URL;
 
 //Restful API config
 
-axios.defaults.headers['Content-type'] = 'aplication/json'
+axios.defaults.headers['Content-type'] = 'application/json'
 
 //instance Creation
 const baseApi = axios.create({

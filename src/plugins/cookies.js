@@ -1,9 +1,8 @@
 import parseJwt from './parseJwt';
-
 const setCookies = (name, value, { datetime }) => {
-    const d = new date();
+    const d = new Date();
     if (datetime) d.setTime(datetime);
-    const expires = 'expires=${d.toUTCString()}';
+    const expires = `expires=${d.toUTCString()}`;
     document.cookie = `${name} = ${value};${expires}; path=/;`;
 
 };

@@ -24,7 +24,7 @@
                 <div class="card-body">
                   <form @submit.prevent="submitLogin">
                     <div class="mb-3">
-                      <argon-input v-model="input.username" type="email" placeholder="Email" name="email" size="lg" />
+                      <argon-input v-model="input.username" type="text" placeholder="username" name="email" size="lg" />
                     </div>
                     <div class="mb-3">
                       <argon-input v-model="input.password" type="password" placeholder="Password" name="password" size="lg" />
@@ -79,13 +79,13 @@
 </template>
 
 <script>
-import Navbar from "../examples/PageLayout/Navbar.vue";
-import ArgonInput from "../components/ArgonInput.vue";
-import ArgonSwitch from "../components/ArgonSwitch.vue";
-import ArgonButton from "../components/ArgonButton.vue";
+import Navbar from "../../examples/PageLayout/Navbar.vue";
+import ArgonInput from "../../components/ArgonInput.vue";
+import ArgonSwitch from "../../components/ArgonSwitch.vue";
+import ArgonButton from "../../components/ArgonButton.vue";
 const body = document.getElementsByTagName("body")[0];
 import {mapActions} from 'pinia';
-import d$auth from '../store/auth';
+import d$auth from '../../stores/auth';
 
 export default {
   name: "signin",
@@ -107,6 +107,7 @@ export default {
     async submitLogin(){
       try {
         await this.a$login({ ...this.input});
+        this.$router.replace({ name:'Default'});
       } catch (e) {
         console.error(e)
       }
