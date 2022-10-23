@@ -12,11 +12,11 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const { id } = certCookies();
   if (to.matched.some(({ meta }) => meta.auth) && !id) {
-    next({ id: 'Signin' });
+    next({ name: 'Signin' });
     console.log(id)
   }
-  else if (to.matched.some(({ path }) => path.includes('auth')) && id) {
-    next({ id: 'Default' });
+  else if (to.matched.some(({ path }) => path.includes('auth') || path === '/') && id) {
+    next({ name: 'Default' });
   } else {
     next();
   }
