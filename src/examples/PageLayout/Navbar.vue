@@ -32,7 +32,7 @@
             <router-link
               class="nav-link d-flex align-items-center me-2 active"
               aria-current="page"
-              to="/dashboard-default"
+              to="/dashboard"
             >
               <i
                 class="fa fa-chart-pie opacity-6 me-1"
@@ -43,7 +43,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link me-2" to="profil">
+            <router-link class="nav-link me-2" to="/dashboard/profile">
               <i
                 class="fa fa-user opacity-6 me-1"
                 aria-hidden="true"
@@ -53,7 +53,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link me-2" :to="{ name: 'Signin' }">
+            <router-link class="nav-link me-2" to="/auth/signup">
               <i
                 class="fas fa-user-circle opacity-6 me-1"
                 aria-hidden="true"
@@ -63,7 +63,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link me-2" :to="{ name: 'Signup' }">
+            <router-link class="nav-link me-2" to="/auth/signin">
               <i
                 class="fas fa-key opacity-6 me-1"
                 aria-hidden="true"

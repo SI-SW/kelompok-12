@@ -13,7 +13,7 @@
         :value="modelValue"
         :placeholder="placeholder"
         :isRequired="isRequired"
-        @change="$emit('update:modelValue',$event.target.value)"
+        @change="$emit('update:modelValue', $event.target.value)"
       />
       <span v-if="iconDir === 'right'" class="input-group-text">
         <i :class="getIcon(icon)"></i>
@@ -25,7 +25,7 @@
 <script>
 export default {
   name: "argon-input",
-  emits:['update:modelValue'],
+  emits: ['update:modelValue'],
   props: {
     size: {
       type: String,
