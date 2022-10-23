@@ -90,8 +90,19 @@
           </template>
         </sidenav-item>
       </li>
+      <li class="nav-item">
+        
+          
+        
+      </li>
+      
     </ul>
   </div>
+  <button
+        @click="a$logout"
+          
+          
+        >Logut</button>
   <div class="pt-3 mx-3 mt-3 sidenav-footer">
     <sidenav-card
       :class="cardBg"
@@ -104,11 +115,31 @@
 import SidenavItem from "./SidenavItem.vue";
 import SidenavCard from "./SidenavCard.vue";
 
+import d$auth from '../../stores/auth';
+import {mapActions} from 'pinia';
+import ArgonButton from "../../components/ArgonButton.vue";
+
+
+
 export default {
   name: "SidenavList",
   props: {
     cardBg: String
   },
+  methods: {
+  ...mapActions(d$auth, ['a$logout']),
+  logout() {
+    
+    try {
+      console.log("log")
+      this.a$logout();
+      
+      this.$router.replace({ name: 'Signin' });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+},
   data() {
     return {
       title: "Argon Dashboard 2",
@@ -118,8 +149,9 @@ export default {
   },
   components: {
     SidenavItem,
-    SidenavCard
-  },
+    SidenavCard,
+    ArgonButton
+},
   methods: {
     getRoute() {
       const routeArr = this.$route.path.split("/");
