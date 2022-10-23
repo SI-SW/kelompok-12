@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { certCookies, setCookies, delCookies } from "../plugins/cookies";
-import * as s$auth from '@/services/auth'
+import * as s$auth from '@/service/auth'
 const d$auth = defineStore({
     id: 'auth',
     state: () => ({

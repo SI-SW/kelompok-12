@@ -129,8 +129,8 @@ import d$auth from '@/stores/auth';
 
 import SidenavItem from "./SidenavItem.vue";
 import SidenavCard from "./SidenavCard.vue";
-import d$auth from '../../stores/auth';
-import {mapActions} from 'pinia';
+
+
 
 
 
