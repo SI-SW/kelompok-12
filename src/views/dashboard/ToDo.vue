@@ -1,6 +1,6 @@
 <script>
     import { mapActions, mapState } from 'pinia'
-    import d$todo from '@/stores/dasboard/todo.js'
+    import d$todo from '../../stores/dashboard/todo'
 
     export default {
         name: 'ToDo',
