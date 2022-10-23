@@ -11,6 +11,7 @@ const d$auth = defineStore({
     }),
     actions: {
         async a$setUser() {
+            console.log(certCookies())
             try {
                 const { id, name, role } = certCookies();
                 this.id = id;
@@ -32,8 +33,9 @@ const d$auth = defineStore({
                 setCookies('CERT', data.token, { datetime: data.expiresAt });
                 this.a$setUser();
                 return true;
-            } catch ({ error, message }) {
-                throw message ?? error;
+            } catch (error) {
+                console.log(error)
+                throw error;
             }
         },
         async a$register(body) {
