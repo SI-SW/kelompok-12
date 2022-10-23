@@ -24,10 +24,10 @@
                 <div class="card-body">
                   <form @submit.prevent="submitLogin">
                     <div class="mb-3">
-                      <argon-input type="email" placeholder="Email" name="email" size="lg" />
+                      <argon-input v-model="input.username" type="email" placeholder="Email" name="email" size="lg" />
                     </div>
                     <div class="mb-3">
-                      <argon-input type="password" placeholder="Password" name="password" size="lg" />
+                      <argon-input v-model="input.password" type="password" placeholder="Password" name="password" size="lg" />
                     </div>
                     <argon-switch id="rememberMe">Remember me</argon-switch>
 
@@ -104,10 +104,11 @@ export default {
     },
   }),
   methods: {
-    ... mapsActions(d$auth, ['a$login']),
-    async submitlogin() {
+    ... mapActions(d$auth, ['a$login']),
+    async submitLogin() {
       try {
         await this.a$login({ ... this.input });
+        this.$router.replace({name: 'Default'});
       } catch (e) {
         console.error(e);
       }
