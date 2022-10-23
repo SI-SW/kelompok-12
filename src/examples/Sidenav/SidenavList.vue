@@ -6,8 +6,8 @@
     <ul class="navbar-nav">
       <li class="nav-item">
         <sidenav-item
-          url="/dashboard-default"
-          :class="getRoute() === 'dashboard-default' ? 'active' : ''"
+          url="/dashboard"
+          :class="getRoute() === 'dashboard' ? 'active' : ''"
           :navText="this.$store.state.isRTL ? 'لوحة القيادة' : 'Dashboard'"
         >
           <template v-slot:icon>
@@ -30,36 +30,12 @@
       </li>
       <li class="nav-item">
         <sidenav-item
-          url="/billing"
+          url="/dashboard/billing"
           :class="getRoute() === 'billing' ? 'active' : ''"
           :navText="this.$store.state.isRTL ? 'الفواتیر' : 'Billing'"
         >
           <template v-slot:icon>
             <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
-          </template>
-        </sidenav-item>
-      </li>
-      <li class="nav-item">
-        <sidenav-item
-          url="/virtual-reality"
-          :class="getRoute() === 'virtual-reality' ? 'active' : ''"
-          :navText="
-            this.$store.state.isRTL ? 'الواقع الافتراضي' : 'Virtual Reality'
-          "
-        >
-          <template v-slot:icon>
-            <i class="ni ni-app text-info text-sm opacity-10"></i>
-          </template>
-        </sidenav-item>
-      </li>
-      <li class="nav-item">
-        <sidenav-item
-          url="/rtl-page"
-          :class="getRoute() === 'rtl-page' ? 'active' : ''"
-          navText="RTL"
-        >
-          <template v-slot:icon>
-            <i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
           </template>
         </sidenav-item>
       </li>
@@ -92,7 +68,7 @@
       </li>
       <li class="nav-item">
         <sidenav-item
-          url="/signin"
+          url="/auth/signin"
           :class="getRoute() === 'signin' ? 'active' : ''"
           :navText="this.$store.state.isRTL ? 'تسجيل الدخول' : 'Sign In'"
         >
@@ -103,7 +79,7 @@
       </li>
       <li class="nav-item">
         <sidenav-item
-          url="/signup"
+          url="/auth/signup"
           :class="getRoute() === 'signup' ? 'active' : ''"
           :navText="this.$store.state.isRTL ? 'اشتراك' : 'Sign Up'"
         >

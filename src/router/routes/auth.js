@@ -1,7 +1,7 @@
 const auth = {
     path: '/',
     name: 'Auth',
-    childern: [
+    children: [
         {
             path: '/auth/signin',
             name: 'Signin',

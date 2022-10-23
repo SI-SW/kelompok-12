@@ -1,7 +1,7 @@
 const dashboard = {
     path: '/dashboard',
     name: 'Dashboard',
-    childern: [
+    children: [
         {
             path: '',
             name: 'Default',
