@@ -43,7 +43,9 @@
             </router-link>
           </li>
           <li class="nav-item">
+
             <router-link class="nav-link me-2" to="/dashboard/profile">
+
               <i
                 class="fa fa-user opacity-6 me-1"
                 aria-hidden="true"
@@ -53,7 +55,9 @@
             </router-link>
           </li>
           <li class="nav-item">
+
             <router-link class="nav-link me-2" to="/auth/signup">
+
               <i
                 class="fas fa-user-circle opacity-6 me-1"
                 aria-hidden="true"
@@ -63,7 +67,9 @@
             </router-link>
           </li>
           <li class="nav-item">
+
             <router-link class="nav-link me-2" to="/auth/signin">
+
               <i
                 class="fas fa-key opacity-6 me-1"
                 aria-hidden="true"
