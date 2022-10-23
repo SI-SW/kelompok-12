@@ -100,6 +100,19 @@
           </template>
         </sidenav-item>
       </li>
+      <li class="nav-item">
+        <sidenav-item
+          url=""
+          @click="logout"
+          :class="getRoute() === 'logout' ? 'active' : ''"
+          :navText= "'Log Out'"
+          
+        >
+          <template v-slot:icon>
+            <i class="ni ni-collection text-info text-sm opacity-10"></i>
+          </template>
+        </sidenav-item>
+      </li>
     </ul>
   </div>
   <div class="pt-3 mx-3 mt-3 sidenav-footer">
@@ -116,12 +129,21 @@ import d$auth from '@/stores/auth';
 
 import SidenavItem from "./SidenavItem.vue";
 import SidenavCard from "./SidenavCard.vue";
+import d$auth from '../../stores/auth';
+import {mapActions} from 'pinia';
+
+
 
 export default {
+  
   name: "SidenavList",
   props: {
     cardBg: String
   },
+  
+ 
+
+  
   data() {
     return {
       title: "Argon Dashboard 2",
@@ -138,6 +160,7 @@ export default {
       const routeArr = this.$route.path.split("/");
       return routeArr[1];
     },
+
     ...mapActions(d$auth, ["a$logout"]),
     logout() {
       try {
@@ -147,6 +170,7 @@ export default {
         console.log(e);
       }
     },
+
   }
 };
 </script>

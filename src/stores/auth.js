@@ -1,6 +1,8 @@
 import { defineStore } from "pinia";
 import { certCookies, setCookies, delCookies } from "../plugins/cookies";
+
 import * as a$auth from '@/service/auth';
+
 
 const d$auth = defineStore({
     id: 'auth',
@@ -49,7 +51,14 @@ const d$auth = defineStore({
                 console.log(e);
                 throw e;
             }
-        }
+        },
+        async a$logout() {
+            try {
+                delCookies('CERT');
+            } catch ({ error, message }) {
+                throw message ?? error;
+            }
+        },
     },
     getters: {
         g$user: ({ id, name, role }) => ({ id, name, role })
