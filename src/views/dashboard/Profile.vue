@@ -17,7 +17,7 @@
             <div class="col-auto">
               <div class="avatar avatar-xl position-relative">
                 <img
-                  src="../assets/img/team-1.jpg"
+                  src="@/assets/img/team-1.jpg"
                   alt="profile_image"
                   class="shadow-sm w-100 border-radius-lg"
                 />
@@ -216,19 +216,19 @@
                   <label for="example-text-input" class="form-control-label"
                     >Username</label
                   >
-                  <argon-input type="text" value="lucky.jesse" />
+                  <argon-input type="text" v-model="g$user.name" />
                 </div>
                 <div class="col-md-6">
                   <label for="example-text-input" class="form-control-label"
                     >Email address</label
                   >
-                  <argon-input type="email" value="jesse@example.com" />
+                  <argon-input type="email" v-model="g$user.id" />
                 </div>
                 <div class="col-md-6">
                   <label for="example-text-input" class="form-control-label"
                     >First name</label
                   >
-                  <input class="form-control" type="text" value="Jesse" />
+                  <argon-input type="text" value="Jesse" />
                 </div>
                 <div class="col-md-6">
                   <label for="example-text-input" class="form-control-label"
@@ -295,9 +295,11 @@
 <script>
 import setNavPills from "@/assets/js/nav-pills.js";
 import setTooltip from "@/assets/js/tooltip.js";
-import ProfileCard from "@/components/examples/ProfileCard.vue";
+import ProfileCard from "../../components/examples/ProfileCard.vue";
 import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
+import d$auth from "@/stores/auth";
+import { mapState, mapActions } from "pinia";
 
 const body = document.getElementsByTagName("body")[0];
 
@@ -309,6 +311,25 @@ export default {
     };
   },
   components: { ProfileCard, ArgonInput, ArgonButton },
+
+  computed: {
+    ...mapState(d$auth, ["g$user"]),
+  },
+
+  methods: {
+    ...mapActions(d$auth, ["a$setUser"]),
+    async getUser() {
+      try {
+        await this.a$setUser;
+      } catch (error) {
+        console.error("method getUser error", error);
+      }
+    },
+  },
+
+  async created() {
+    await this.a$setUser();
+  },
 
   mounted() {
     this.$store.state.isAbsolute = true;

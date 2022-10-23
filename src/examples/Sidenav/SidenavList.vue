@@ -7,7 +7,7 @@
       <li class="nav-item">
         <sidenav-item
           url="/dashboard"
-          :class="getRoute() === 'dashboard' ? 'active' : ''"
+          :class="getRoute() === 'dashboard/' ? 'active' : ''"
           :navText="this.$store.state.isRTL ? 'لوحة القيادة' : 'Dashboard'"
         >
           <template v-slot:icon>
@@ -30,17 +30,15 @@
       </li>
       <li class="nav-item">
         <sidenav-item
-          url="/dashboard/billing"
-          :class="getRoute() === 'billing' ? 'active' : ''"
-          :navText="this.$store.state.isRTL ? 'الفواتیر' : 'Billing'"
+          url="/dashboard/input"
+          :class="getRoute() === 'input' ? 'active' : ''"
+          :navText="this.$store.state.isRTL ? 'الفواتیر' : 'Input'"
         >
           <template v-slot:icon>
             <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
           </template>
         </sidenav-item>
       </li>
-      
-      
       <li class="mt-3 nav-item">
         <h6
           v-if="this.$store.state.isRTL"
@@ -68,7 +66,7 @@
           </template>
         </sidenav-item>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <sidenav-item
           url="/auth/signin"
           :class="getRoute() === 'signin' ? 'active' : ''"
@@ -89,6 +87,18 @@
             <i class="ni ni-collection text-info text-sm opacity-10"></i>
           </template>
         </sidenav-item>
+      </li> -->
+      <li class="nav-item">
+        <sidenav-item
+          url="/auth/signin"
+          :class="getRoute() === 'signin' ? 'active' : ''"
+          :navText="this.$store.state.isRTL ? 'اشتراك' : 'LogOut'"
+          @click="logout"
+        >
+          <template v-slot:icon>
+            <i class="ni ni-button-power text-danger text-sm opacity-10"></i>
+          </template>
+        </sidenav-item>
       </li>
     </ul>
   </div>
@@ -101,6 +111,9 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'pinia';
+import d$auth from '@/stores/auth';
+
 import SidenavItem from "./SidenavItem.vue";
 import SidenavCard from "./SidenavCard.vue";
 
@@ -124,7 +137,16 @@ export default {
     getRoute() {
       const routeArr = this.$route.path.split("/");
       return routeArr[1];
-    }
+    },
+    ...mapActions(d$auth, ["a$logout"]),
+    logout() {
+      try {
+        this.a$logout();
+        this.$router.replace({ name: "Signin" });
+      } catch (e) {
+        console.log(e);
+      }
+    },
   }
 };
 </script>

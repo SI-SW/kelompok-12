@@ -38,7 +38,6 @@
             <router-link
               :to="{ name: 'Signin' }"
               class="px-0 nav-link font-weight-bold text-white"
-              target="_blank"
             >
               <i
                 class="fa fa-user"
@@ -47,7 +46,7 @@
               <span v-if="this.$store.state.isRTL" class="d-sm-inline d-none"
                 >يسجل دخول</span
               >
-              <span v-else class="d-sm-inline d-none">Sign In</span>
+              <span v-else class="d-sm-inline d-none"> {{ g$user.name }} </span>
             </router-link>
           </li>
           <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -200,6 +199,9 @@
 <script>
 import Breadcrumbs from "../Breadcrumbs.vue";
 import { mapMutations, mapActions } from "vuex";
+import { mapState as mapPiniaState } from 'pinia'
+import { mapActions as mapPiniaActions } from 'pinia'
+import d$auth from '@/stores/auth';
 
 export default {
   name: "navbar",
@@ -219,15 +221,29 @@ export default {
     toggleSidebar() {
       this.toggleSidebarColor("bg-white");
       this.navbarMinimize();
-    }
+    },
+    
+    ...mapPiniaActions(d$auth, ["a$setUser"]),
+    async getUser() {
+      try {
+        await this.a$setUser;
+      } catch (error) {
+        console.error("method getUser error", error);
+      }
+    },
   },
   components: {
     Breadcrumbs
   },
   computed: {
+    ... mapPiniaState(d$auth, ["g$user"]),
     currentRouteName() {
       return this.$route.name;
-    }
-  }
+    },
+  },
+
+  async created() {
+    await this.a$setUser();
+  },
 };
 </script>

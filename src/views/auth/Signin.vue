@@ -24,7 +24,7 @@
                 <div class="card-body">
                   <form @submit.prevent="submitLogin">
                     <div class="mb-3">
-                      <argon-input v-model="input.username" type="text" placeholder="username" name="email" size="lg" />
+                      <argon-input v-model="input.username" type="email" placeholder="Email" name="email" size="lg" />
                     </div>
                     <div class="mb-3">
                       <argon-input v-model="input.password" type="password" placeholder="Password" name="password" size="lg" />
@@ -46,10 +46,12 @@
                 <div class="px-1 pt-0 text-center card-footer px-lg-2">
                   <p class="mx-auto mb-4 text-sm">
                     Don't have an account?
-                    <a
-                      href="javascript:;"
-                      class="text-success text-gradient font-weight-bold"
-                    >Sign up</a>
+                    <router-link to="/auth/signup">
+                      <a
+                        href="javascript:;"
+                        class="text-success text-gradient font-weight-bold"
+                      >Sign up</a>
+                    </router-link>
                   </p>
                 </div>
               </div>
@@ -79,13 +81,14 @@
 </template>
 
 <script>
-import Navbar from "../../examples/PageLayout/Navbar.vue";
-import ArgonInput from "../../components/ArgonInput.vue";
-import ArgonSwitch from "../../components/ArgonSwitch.vue";
-import ArgonButton from "../../components/ArgonButton.vue";
+import { mapActions } from 'pinia';
+import d$auth from '@/stores/auth';
+
+import Navbar from "@/examples/PageLayout/Navbar.vue";
+import ArgonInput from "@/components/ArgonInput.vue";
+import ArgonSwitch from "@/components/ArgonSwitch.vue";
+import ArgonButton from "@/components/ArgonButton.vue";
 const body = document.getElementsByTagName("body")[0];
-import {mapActions} from 'pinia';
-import d$auth from '../../stores/auth';
 
 export default {
   name: "signin",
@@ -95,21 +98,20 @@ export default {
     ArgonSwitch,
     ArgonButton,
   },
-  data:() =>({
+  data: () => ({
     input:{
-      username:'',
-      password:'',
-    },
+      username: '',
+      password: '',
+    }
   }),
-
-  methods:{
-    ...mapActions(d$auth,[ 'a$login']),
+  methods: {
+    ...mapActions(d$auth, ['a$login']),
     async submitLogin(){
       try {
-        await this.a$login({ ...this.input});
-        this.$router.replace({ name:'Default'});
+        await this.a$login({ ...this.input });
+        this.$router.replace({ name: 'Default'});
       } catch (e) {
-        console.error(e)
+        console.error(e);
       }
     }
   },

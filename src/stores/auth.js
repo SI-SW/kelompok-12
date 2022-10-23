@@ -1,26 +1,23 @@
 import { defineStore } from "pinia";
-import { certCookies, setCookies } from "../plugins/cookies";
-import * as s$auth from '../services/auth'
+import { certCookies, setCookies, delCookies } from "../plugins/cookies";
+import * as a$auth from '@/service/auth';
+
 const d$auth = defineStore({
     id: 'auth',
     state: () => ({
-        id: undefined,
         name: undefined,
+        id: undefined,
         role: undefined,
-
     }),
     actions: {
         async a$setUser() {
-            console.log(certCookies())
             try {
                 const { id, name, role } = certCookies();
                 this.id = id;
                 this.name = name;
                 this.role = role;
-                return 'user authenticated!';
-
-            }
-            catch ({ message }) {
+                return 'User Authenticated!';
+            } catch ({message}) {
                 this.id = undefined;
                 this.name = undefined;
                 this.role = undefined;
@@ -29,30 +26,34 @@ const d$auth = defineStore({
         },
         async a$login(body) {
             try {
-                const { data } = await s$auth.login(body);
-                setCookies('CERT', data.token, { datetime: data.expiresAt });
+                const { data } = await a$auth.login(body)
+                setCookies('CERT', data.token, {datetime: data.expiresAt})
                 this.a$setUser();
                 return true;
-            } catch (error) {
-                console.log(error)
-                throw error;
+            } catch (e) {
+                console.log(e);
+                throw e;
+            }
+        },
+        async a$logout() {
+            try {
+              delCookies('CERT');
+            } catch ({ error, message }) {
+              throw message ?? error;
             }
         },
         async a$register(body) {
             try {
-                const { data } = await s$auth.register(body);
-                setCookies('CERT', data.token, { datetime: parseISO(data.expiresAt) });
-                this.a$setUser();
-                return true;
-            } catch ({ error, message }) {
-                throw message ?? error;
+                await a$auth.register(body)
+            } catch (e) {
+                console.log(e);
+                throw e;
             }
         }
     },
     getters: {
-        g$user: ({ id, name, role }) => ({ id, name, role }),
-    },
+        g$user: ({ id, name, role }) => ({ id, name, role })
+    }
+})
 
-});
-
-export default d$auth;
+export default d$auth
