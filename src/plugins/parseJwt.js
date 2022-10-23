@@ -3,6 +3,5 @@ const parseJwt = (token) => {
     const parsedJwt = JSON.parse(window.atob(base64Jwt));
     return parsedJwt;
 };
-
-
+  
 export default parseJwt;

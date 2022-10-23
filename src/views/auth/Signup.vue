@@ -97,7 +97,7 @@
             </div>
             <div class="card-body">
               <form @submit.prevent="submitRegister">
-                <argon-input v-model="input.name" type="text" placeholder="Name" aria-label="Name" />
+                <argon-input v-model="input.name" type="text" placeholder="Username" aria-label="Text" />
                 <argon-input v-model="input.email" type="email" placeholder="Email" aria-label="Email" />
                 <argon-input v-model="input.password" type="password" placeholder="Password" aria-label="Password" />
                 <argon-checkbox checked>
@@ -114,10 +114,11 @@
                 </div>
                 <p class="text-sm mt-3 mb-0">
                   Already have an account?
-                  <a
-                    href="javascript:;"
-                    class="text-dark font-weight-bolder"
-                  >Sign in</a>
+                  <router-link to="/auth/signin">
+                    <a
+                      class="text-dark font-weight-bolder"
+                    >Sign in</a>
+                  </router-link>
                 </p>
               </form>
             </div>
@@ -130,17 +131,18 @@
 </template>
 
 <script>
-import Navbar from "../../examples/PageLayout/Navbar.vue";
-import AppFooter from "../../examples/PageLayout/Footer.vue";
-import ArgonInput from "../../components/ArgonInput.vue";
-import ArgonCheckbox from "../../components/ArgonCheckbox.vue";
-import ArgonButton from "../../components/ArgonButton.vue";
+import { mapActions } from 'pinia';
+import d$auth from '@/stores/auth';
+
+import Navbar from "@/examples/PageLayout/Navbar.vue";
+import AppFooter from "@/examples/PageLayout/Footer.vue";
+import ArgonInput from "@/components/ArgonInput.vue";
+import ArgonCheckbox from "@/components/ArgonCheckbox.vue";
+import ArgonButton from "@/components/ArgonButton.vue";
 const body = document.getElementsByTagName("body")[0];
-import {mapActions} from 'pinia';
-import d$auth from '../../stores/auth';
 
 export default {
-  name: "signin",
+  name: "signup",
   components: {
     Navbar,
     AppFooter,
@@ -148,29 +150,24 @@ export default {
     ArgonCheckbox,
     ArgonButton,
   },
-
-  data(){
-    return{
-    input:{
-      name:"",
-      email:"",
-      password:"",
-      },
-    };
-  },
-methods:{
-  ... mapActions(d$auth,['a$register']),
-  async submitRegister(){
-    try{
-      await this.a$register([...this.input]);
-      this.$router.replace({name:'Default'});
-    }catch(e){
-      console.error(e)
+  data: () => ({
+    input: {
+      name: '',
+      email: '',
+      password: '',
     }
-  }
-},
-  
-
+  }),
+  methods: {
+    ...mapActions(d$auth, ['a$register']),
+    async submitRegister(){
+      try {
+        await this.a$register({ ...this.input });
+        this.$router.replace({ name: 'Signin'});
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  },
   created() {
     this.$store.state.hideConfigButton = true;
     this.$store.state.showNavbar = false;
